@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="有兽焉兔爷角色介绍：来自月宫的兔子、鹿人店的伙伴与理发师。">
+    <title>兔爷 · 从月宫来到鹿人店</title>
+    <style>
+        :root {
+            --violet: #73518d;
+            --deep: #332347;
+            --lilac: #aa83c4;
+            --lavender: #e6d4f0;
+            --cream: #fffaff;
+            --paper: #fffdfd;
+            --muted: #806f89;
+            --line: rgba(136, 94, 157, .24);
+            font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { min-width: 320px; margin: 0; color: var(--violet); background: var(--cream); }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; }
+
+        .site-nav {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: min(1180px, calc(100% - 48px));
+            margin: 0 auto;
+            padding: 26px 0;
+            color: var(--deep);
+        }
+        .logo { display: flex; align-items: center; gap: 11px; font-size: .82rem; font-weight: 700; letter-spacing: .16em; }
+        .logo-mark {
+            display: grid;
+            width: 35px;
+            height: 35px;
+            place-items: center;
+            border: 1px solid rgba(51, 35, 71, .35);
+            border-radius: 50%;
+            background: rgba(255,255,255,.62);
+        }
+        .nav-links { display: flex; gap: 28px; margin: 0; padding: 0; list-style: none; font-size: .84rem; }
+        .nav-links a { position: relative; padding: 8px 0; }
+        .nav-links a::after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            background: var(--lilac);
+            content: "";
+            transform: scaleX(0);
+            transition: transform .3s ease;
+        }
+        .nav-links a:hover::after { transform: scaleX(1); }
+
+        .hero {
+            position: relative;
+            display: flex;
+            min-height: 790px;
+            align-items: center;
+            overflow: hidden;
+            padding: 115px 20px 90px;
+            background:
+                radial-gradient(circle at 8% 18%, rgba(255,255,255,.88) 0 7%, transparent 7.5%),
+                radial-gradient(circle at 91% 78%, rgba(255,255,255,.58) 0 11%, transparent 11.5%),
+                linear-gradient(132deg, #fffaff 0%, #eadbf2 47%, #80639a 100%);
+        }
+        .hero::before, .hero::after {
+            position: absolute;
+            color: rgba(119, 75, 145, .25);
+            pointer-events: none;
+        }
+        .hero::before { top: 24%; left: 8%; content: "☾"; font-size: 4.5rem; transform: rotate(-15deg); }
+        .hero::after { right: 10%; bottom: 17%; content: "✦"; font-size: 4.7rem; transform: rotate(17deg); }
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, .95fr) minmax(320px, .82fr);
+            gap: 70px;
+            align-items: center;
+            width: min(1110px, 100%);
+            margin: 0 auto;
+        }
+        .eyebrow, .section-kicker { margin: 0 0 17px; color: var(--violet); font-size: .75rem; font-weight: 700; letter-spacing: .3em; }
+        h1 { margin: 0; color: var(--deep); font-size: clamp(4rem, 9vw, 7.5rem); letter-spacing: -.1em; line-height: .96; }
+        .hero-subtitle { margin: 23px 0 0; color: #806091; font-size: 1.16rem; font-weight: 700; letter-spacing: .15em; }
+        .hero-description { max-width: 600px; margin: 27px 0 0; color: var(--muted); font-size: 1.06rem; line-height: 2; }
+        .hero-quote, .story-quote {
+            margin: 28px 0 0;
+            padding: 17px 21px;
+            border-left: 4px solid var(--lilac);
+            border-radius: 0 16px 16px 0;
+            background: rgba(255,255,255,.64);
+            color: var(--deep);
+            font-size: 1.05rem;
+            line-height: 1.85;
+        }
+        .hero-image {
+            padding: 13px;
+            border: 1px solid rgba(255,255,255,.95);
+            border-radius: 34px;
+            background: rgba(255,255,255,.46);
+            box-shadow: 0 25px 60px rgba(64, 42, 84, .18);
+            transform: rotate(2deg);
+        }
+        .hero-image img { display: block; width: 100%; max-height: 580px; border-radius: 24px; object-fit: cover; }
+        .scroll-cue { display: inline-flex; gap: 10px; align-items: center; margin-top: 30px; color: var(--violet); font-size: .8rem; font-weight: 700; letter-spacing: .12em; }
+        .scroll-cue span { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid var(--violet); border-radius: 50%; }
+
+        .section { position: relative; overflow: hidden; padding: 112px 20px 124px; }
+        .section:nth-of-type(even) { background: linear-gradient(135deg, #fffaff, #f1e4f6 58%, #e1cbea); }
+        .section::before, .section::after {
+            position: absolute;
+            color: rgba(142, 91, 166, .2);
+            pointer-events: none;
+        }
+        .section::before { top: 46px; left: 8%; content: "✿"; font-size: 3.4rem; }
+        .section::after { right: 8%; bottom: 55px; content: "◌"; font-size: 4.8rem; }
+        .section-inner { position: relative; z-index: 1; width: min(1070px, 100%); margin: 0 auto; }
+        .section-heading { max-width: 770px; margin: 0 auto 43px; text-align: center; }
+        h2 { margin: 0; color: var(--deep); font-size: clamp(2.1rem, 4vw, 3.35rem); letter-spacing: -.06em; }
+        .section-intro { margin: 18px auto 0; color: var(--muted); line-height: 2; }
+
+        .fact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .fact-card {
+            min-height: 168px;
+            padding: 24px 18px;
+            border: 1px solid var(--line);
+            border-radius: 23px;
+            background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(235,216,243,.74));
+            box-shadow: 0 15px 34px rgba(64, 42, 84, .1);
+            text-align: center;
+        }
+        .fact-icon { display: block; margin-bottom: 11px; font-size: 1.75rem; }
+        .fact-card strong { display: block; margin-bottom: 8px; color: var(--violet); }
+        .fact-card span:last-child { color: var(--muted); font-size: .9rem; line-height: 1.75; }
+
+        .story-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 54px; align-items: center; }
+        .story-image { padding: 10px; border-radius: 28px; background: #fff; box-shadow: 0 18px 38px rgba(64, 42, 84, .13); transform: rotate(-2deg); }
+        .story-image img { display: block; width: 100%; border-radius: 19px; object-fit: cover; }
+        .story-text h3 { margin: 0 0 18px; color: var(--deep); font-size: 1.75rem; }
+        .story-text p { margin: 0 0 16px; color: var(--muted); line-height: 2; }
+        .story-quote { margin-top: 23px; color: #694d7d; background: #fffaff; }
+
+        .shop {
+            position: relative;
+            overflow: hidden;
+            padding: 120px 20px 135px;
+            background:
+                radial-gradient(circle at 8% 20%, rgba(255,255,255,.8) 0 8%, transparent 8.5%),
+                radial-gradient(circle at 91% 78%, rgba(255,255,255,.64) 0 11%, transparent 11.5%),
+                linear-gradient(135deg, #eadcf3, #b995c9 55%, #f2e4f5);
+        }
+        .shop-inner { position: relative; z-index: 1; width: min(1060px, 100%); margin: 0 auto; }
+        .shop-card {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 48px;
+            align-items: center;
+            padding: 34px;
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 30px;
+            background: rgba(255,250,255,.75);
+            box-shadow: 0 20px 46px rgba(64, 42, 84, .14);
+            backdrop-filter: blur(10px);
+        }
+        .shop-image { padding: 9px; border-radius: 23px; background: #fffaff; transform: rotate(2deg); }
+        .shop-image img { display: block; width: 100%; border-radius: 16px; object-fit: cover; }
+        .shop-copy h3 { margin: 0 0 16px; color: var(--deep); font-size: 1.8rem; }
+        .shop-copy p { margin: 0 0 17px; color: var(--muted); line-height: 2; }
+        .shop-list { display: grid; gap: 11px; margin: 22px 0 0; padding: 0; list-style: none; color: #694d78; line-height: 1.7; }
+        .shop-list li::before { margin-right: 9px; color: var(--lilac); content: "✿"; }
+
+        .bonds { position: relative; overflow: hidden; padding: 118px 20px 135px; background: #fffaff; }
+        .bonds-inner { position: relative; z-index: 1; width: min(1060px, 100%); margin: 0 auto; }
+        .bond-card {
+            display: flex;
+            align-items: center;
+            gap: 45px;
+            margin: 0 auto 32px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(255,255,255,.92), rgba(238,222,245,.74));
+            box-shadow: 0 18px 42px rgba(64, 42, 84, .11);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .bond-card:hover { box-shadow: 0 24px 52px rgba(64, 42, 84, .18); transform: translateY(-5px); }
+        .bond-card.reverse { flex-direction: row-reverse; }
+        .bond-image { flex: 0 0 38%; }
+        .bond-image img { display: block; width: 100%; max-height: 380px; border: 7px solid #fffdfd; border-radius: 20px; object-fit: cover; }
+        .bond-text { flex: 1; min-width: 0; }
+        .bond-text h3 { display: inline-block; margin: 0 0 17px; padding: 10px 16px; border-left: 5px solid var(--lilac); border-radius: 0 10px 10px 0; color: var(--deep); background: #f0e2f6; font-size: 1.4rem; }
+        .bond-text p { margin: 0 0 16px; color: var(--muted); line-height: 1.95; }
+        .bond-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+        .tag { padding: 7px 13px; border-radius: 99px; color: #694d78; background: #ead9f2; font-size: .87rem; font-weight: 700; }
+        .bond-quote { margin: 22px 0 0; padding: 13px 17px; border-left: 4px solid var(--lilac); border-radius: 0 12px 12px 0; background: #fffaff; color: #694d78; font-style: italic; line-height: 1.8; }
+
+        .ending { padding: 105px 20px 110px; color: #fffaff; background: var(--deep); text-align: center; }
+        .ending h2 { color: #f1ddf8; }
+        .ending p { max-width: 700px; margin: 20px auto 0; color: rgba(255,250,255,.78); line-height: 2; }
+        .back-btn { display: inline-block; margin-top: 30px; padding: 12px 24px; border: 1px solid var(--lilac); border-radius: 99px; color: var(--lilac); font-weight: 700; transition: background .25s ease, color .25s ease, transform .25s ease; }
+        .back-btn:hover { color: var(--deep); background: var(--lilac); transform: translateY(-3px); }
+        footer { padding: 28px 20px; color: rgba(255,250,255,.62); background: #241a32; font-size: .76rem; letter-spacing: .08em; text-align: center; }
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 10; display: grid; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.8); border-radius: 50%; color: #fff; background: rgba(115,81,141,.75); cursor: pointer; opacity: 0; pointer-events: none; place-items: center; transform: translateY(12px); transition: opacity .3s ease, transform .3s ease, background .3s ease; }
+        .back-to-top.is-visible { opacity: .85; pointer-events: auto; transform: translateY(0); }
+        .back-to-top:hover, .back-to-top:focus-visible { outline: none; background: var(--deep); opacity: 1; }
+
+        @media (max-width: 780px) {
+            .site-nav { width: calc(100% - 34px); }
+            .logo { display: none; }
+            .nav-links { width: 100%; justify-content: space-between; gap: 8px; font-size: .68rem; }
+            .hero { min-height: auto; padding: 112px 16px 78px; }
+            .hero-inner, .story-layout, .shop-card { display: flex; flex-direction: column; gap: 40px; }
+            .hero-image { order: -1; width: min(500px, 100%); }
+            .hero-copy { width: 100%; }
+            .section, .shop, .bonds { padding: 82px 16px 95px; }
+            .fact-grid { grid-template-columns: repeat(2, 1fr); }
+            .shop-card { padding: 22px; }
+            .bond-card, .bond-card.reverse { flex-direction: column; gap: 24px; padding: 22px; }
+            .bond-image { width: 100%; }
+            .back-to-top { right: 16px; bottom: 16px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav" aria-label="主导航">
+        <a class="logo" href="index.html"><span class="logo-mark">兔</span><span>有兽焉 · 鹿人店</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">主页</a></li>
+            <li><a href="#profile">角色档案</a></li>
+            <li><a href="#arrival">来到人间</a></li>
+            <li><a href="#friends">鹿人店日常</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow">THE MOON PALACE RABBIT</p>
+                    <h1>兔爷</h1>
+                    <p class="hero-subtitle">来自月宫的兔子 · 鹿人店的理发师</p>
+                    <p class="hero-description">
+                        我原本住在月宫，做着捣药、做月饼之类的工作。
+                        人间闹瘟疫的时候，我主动请命下凡，为人类去病消灾。
+                        后来我在地球上生活了很多年，也见过热闹的北京和安静的深山，
+                        最后在鹿人店找到了一个可以坐下来喝茶、替大家理发的地方。
+                    </p>
+                    <blockquote class="hero-quote">“老夫老妻。”</blockquote>
+                    <a class="scroll-cue" href="#profile"><span>↓</span>看看我从哪里来</a>
+                </div>
+                <div class="hero-image reveal"><img src="tuye1.jpg" alt="来自月宫的兔爷"></div>
+            </div>
+        </section>
+
+        <section class="section" id="profile">
+            <div class="section-inner">
+                <div class="section-heading reveal">
+                    <p class="section-kicker">A RABBIT FROM THE MOON</p>
+                    <h2>先说说我这只兔子</h2>
+                    <p class="section-intro">
+                        我是月宫里的兔子，曾经也有过自己的生活和烦恼。
+                        月宫的日子并不坏，只是每天重复同样的事情，久了难免想知道月亮下面的人间是什么样子。
+                        所以后来，我来了地球，也在这里慢慢找到了新的方向。
+                    </p>
+                </div>
+                <div class="fact-grid">
+                    <div class="fact-card reveal"><span class="fact-icon">🌙</span><strong>来自哪里</strong><span>月宫，一只在月宫生活过很久的兔子。</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">💊</span><strong>为什么下凡</strong><span>人间爆发瘟疫时，主动请命来为人类去病消灾。</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">✂️</span><strong>现在的工作</strong><span>理发师，偶尔也负责鹿人店里的各种杂事。</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">🐇</span><strong>现在住哪儿</strong><span>鹿人店旁边的兔洞，离大家近一点。</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="arrival">
+            <div class="section-inner">
+                <div class="story-layout">
+                    <div class="story-image reveal"><img src="tuye2.jpg" alt="兔爷在月色与人间之间"></div>
+                    <div class="story-text reveal">
+                        <p class="section-kicker">FROM THE MOON TO THE MOUNTAIN</p>
+                        <h3>我为什么来到地球</h3>
+                        <p>
+                            月宫里有月桂、有玉兔，也有做不完的药和月饼。人间闹瘟疫的时候，
+                            我便主动请命下凡，去为人类去病消灾。那是我第一次真正走到月亮下面，
+                            也第一次知道，地上的日子和月宫很不一样。
+                        </p>
+                        <p>
+                            后来我在北京生活，追过潮流，也有过一段感情。再后来，四不像离开潘家园，
+                            去了云南深山开鹿人店。我留在北京一阵子，最后还是收拾东西追了过去。
+                            兔洞是我自己挖的，鹿人店是我愿意留下来的地方。
+                        </p>
+                        <p class="story-quote">从月宫到北京，再到云南，兔爷终于在鹿人店留下来。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="shop">
+            <div class="shop-inner">
+                <div class="section-heading reveal">
+                    <p class="section-kicker">MY LIFE AT DEER PEOPLE SHOP</p>
+                    <h2>和四不像相识以后</h2>
+                    <p class="section-intro">
+                        我跟着四不像来到鹿人店，并不是因为这里有多豪华。
+                        是因为他在这里，而这里也确实有一群值得留下来的家伙。
+                    </p>
+                </div>
+                <div class="shop-card reveal">
+                    <div class="shop-image"><img src="ty1.jpg" alt="兔爷与伙伴相处的画面"></div>
+                    <div class="shop-copy">
+                        <h3>这间店，吵一点也没关系</h3>
+                        <p>
+                            四不像负责经营和照顾神兽，我则在旁边帮忙。
+                            皮皮闹起来的时候，我们一起追；有客人上门的时候，我们一起招呼。
+                            有时候店里乱得像刚打过一仗，可等大家坐下来吃点东西，
+                            那些小麻烦也就变成了可以拿来笑的日常。
+                        </p>
+                        <ul class="shop-list">
+                            <li>和四不像一起守着鹿人店</li>
+                            <li>给来店里的神兽理发、整理造型</li>
+                            <li>看着皮皮闯祸，再把他从外面抓回来</li>
+                            <li>晚上回兔洞，明天继续开门</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bonds" id="friends">
+            <div class="bonds-inner">
+                <div class="section-heading reveal">
+                    <p class="section-kicker">THE PEOPLE AROUND ME</p>
+                    <h2>鹿人店的快乐生活</h2>
+                    <p class="section-intro">
+                        这里的伙伴不一定每天都安安静静，但总会在饭点聚到一起。
+                        我们各自有各自的来处，也一起把鹿人店过成了一个热闹的家。
+                    </p>
+                </div>
+
+                <article class="bond-card reveal">
+                    <div class="bond-image"><img src="pipi.jpg" alt="兔爷与皮皮相处"></div>
+                    <div class="bond-text">
+                        <h3>皮皮：店里最忙的那只貔貅</h3>
+                        <p>
+                            皮皮是一只蓝色的貔貅，也是鹿人店里最容易把事情变热闹的家伙。
+                            他爱吃、爱玩，精力好得很，今天还在店里，下一刻可能已经跑到山那边去了。
+                            我跟他相处久了，已经学会先把重要的东西收好，再问他又闯了什么祸。
+                        </p>
+                        <p>
+                            不过，皮皮也有皮皮的可爱。他会把好吃的分一点出来，
+                            也会在大家需要的时候凑过来。店里有他，确实很难安静，
+                            可要是突然安静下来，反而会让人觉得少了点什么。
+                        </p>
+                        <div class="bond-tags"><span class="tag">💙 蓝色貔貅</span><span class="tag">🍪 爱吃爱闹</span><span class="tag">✨ 鹿人店活力担当</span></div>
+                        <p class="bond-quote">皮皮负责把店里变热闹，兔爷负责把被打乱的日常重新整理好。</p>
+                    </div>
+                </article>
+
+                <article class="bond-card reverse reveal">
+                    <div class="bond-image"><img src="lurendian1.jpg" alt="鹿人店里热闹的伙伴们"></div>
+                    <div class="bond-text">
+                        <h3>大家：一起把日子过好</h3>
+                        <p>
+                            鹿人店里来来去去的神兽很多，有的来找我帮忙，有的来借住几天，
+                            还有的来了以后就不太想走。四不像总说店里麻烦已经够多了，
+                            可每次真有谁遇到事情，他还是会认真想办法。
+                        </p>
+                        <p>
+                            我就在旁边给大家理理毛、剪剪头发，顺便听他们讲各自的故事。
+                            有时候是皮皮和谁抢吃的，有时候是店里的客人把屋顶撞了个洞；
+                            修好以后，我们照样会坐在一起吃饭。这样的生活不算清闲，
+                            却比一个人待在月宫里热闹多了。
+                        </p>
+                        <div class="bond-tags"><span class="tag">🏡 鹿人店</span><span class="tag">✂️ 理发师兔爷</span><span class="tag">🌙 热闹的日常</span></div>
+                        <p class="bond-quote">理发、吃饭、追皮皮，都是鹿人店平常又快乐的日子。</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="ending">
+            <div class="section-inner reveal">
+                <p class="section-kicker">A NEW HOME UNDER THE MOON</p>
+                <h2>月亮还在，鹿人店也还在</h2>
+                <p>
+                    我从月宫来到人间，原本只是想做一件有用的事。
+                    后来遇见四不像，遇见皮皮，也遇见了鹿人店里一群吵吵闹闹的伙伴。
+                    现在的我有工作、有兔洞，还有明天可以继续理的头发——这样就很好。
+                </p>
+                <a class="back-btn" href="index.html">← 回到山海间</a>
+            </div>
+        </section>
+    </main>
+
+    <button class="back-to-top" type="button" aria-label="返回顶部"><span aria-hidden="true">↑</span></button>
+    <footer>© 2026 有兽焉主题主页 · 本页面仅用于个人学习与展示 · 月亮照着，鹿人店的灯也亮着</footer>
+
+    <script>
+        const revealItems = document.querySelectorAll(".reveal");
+        const backToTop = document.querySelector(".back-to-top");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (reduceMotion || !("IntersectionObserver" in window)) {
+            revealItems.forEach((item) => item.classList.add("is-visible"));
+        } else {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.12 });
+            revealItems.forEach((item) => revealObserver.observe(item));
+        }
+
+        const updateBackToTop = () => backToTop.classList.toggle("is-visible", window.scrollY > 420);
+        window.addEventListener("scroll", updateBackToTop, { passive: true });
+        updateBackToTop();
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        });
+    </script>
+</body>
+</html>

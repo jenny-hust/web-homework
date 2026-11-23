@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="有兽焉四不像角色介绍：一只戴着四不相面具的鹿精，和他经营的鹿人店、皮皮与兔爷的日常。">
+    <title>四不像 · 鹿人店的店长</title>
+    <style>
+        :root {
+            --brown: #765044;
+            --deep: #402d2a;
+            --clay: #b4775d;
+            --gold: #c99a59;
+            --cream: #fff9ee;
+            --paper: #fffdf8;
+            --muted: #866f67;
+            --line: rgba(161, 119, 89, .26);
+            font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { min-width: 320px; margin: 0; color: var(--brown); background: var(--cream); }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; }
+
+        .site-nav {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: min(1180px, calc(100% - 48px));
+            margin: 0 auto;
+            padding: 26px 0;
+            color: var(--deep);
+        }
+        .logo { display: flex; align-items: center; gap: 11px; font-size: .82rem; font-weight: 700; letter-spacing: .16em; }
+        .logo-mark {
+            display: grid;
+            width: 35px;
+            height: 35px;
+            place-items: center;
+            border: 1px solid rgba(64, 45, 42, .35);
+            border-radius: 50%;
+            background: rgba(255,255,255,.55);
+        }
+        .nav-links { display: flex; gap: 28px; margin: 0; padding: 0; list-style: none; font-size: .84rem; }
+        .nav-links a { position: relative; padding: 8px 0; }
+        .nav-links a::after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            background: var(--clay);
+            content: "";
+            transform: scaleX(0);
+            transition: transform .3s ease;
+        }
+        .nav-links a:hover::after { transform: scaleX(1); }
+
+        .hero {
+            position: relative;
+            display: flex;
+            min-height: 790px;
+            align-items: center;
+            overflow: hidden;
+            padding: 115px 20px 90px;
+            background:
+                radial-gradient(circle at 8% 18%, rgba(255,255,255,.8) 0 7%, transparent 7.5%),
+                radial-gradient(circle at 92% 78%, rgba(255,239,214,.8) 0 10%, transparent 10.5%),
+                linear-gradient(132deg, #fffdf6 0%, #f5dfc2 48%, #cda891 100%);
+        }
+        .hero::before, .hero::after {
+            position: absolute;
+            color: rgba(151, 92, 63, .22);
+            content: "✦";
+            pointer-events: none;
+        }
+        .hero::before { top: 25%; left: 8%; font-size: 4.4rem; transform: rotate(-15deg); }
+        .hero::after { right: 10%; bottom: 17%; font-size: 5rem; transform: rotate(17deg); }
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, .96fr) minmax(320px, .82fr);
+            gap: 70px;
+            align-items: center;
+            width: min(1110px, 100%);
+            margin: 0 auto;
+        }
+        .eyebrow, .section-kicker { margin: 0 0 17px; color: var(--clay); font-size: .75rem; font-weight: 700; letter-spacing: .3em; }
+        h1 { margin: 0; color: var(--deep); font-size: clamp(4rem, 9vw, 7.5rem); letter-spacing: -.1em; line-height: .96; }
+        .hero-subtitle { margin: 23px 0 0; color: #966b58; font-size: 1.16rem; font-weight: 700; letter-spacing: .15em; }
+        .hero-description { max-width: 600px; margin: 27px 0 0; color: var(--muted); font-size: 1.06rem; line-height: 2; }
+        .hero-quote, .story-quote {
+            margin: 28px 0 0;
+            padding: 17px 21px;
+            border-left: 4px solid var(--gold);
+            border-radius: 0 16px 16px 0;
+            background: rgba(255,255,255,.63);
+            color: var(--deep);
+            font-size: 1.05rem;
+            line-height: 1.85;
+        }
+        .hero-image {
+            padding: 13px;
+            border: 1px solid rgba(255,255,255,.95);
+            border-radius: 34px;
+            background: rgba(255,255,255,.47);
+            box-shadow: 0 25px 60px rgba(84, 55, 45, .16);
+            transform: rotate(2deg);
+        }
+        .hero-image img { display: block; width: 100%; max-height: 570px; border-radius: 24px; object-fit: cover; }
+        .scroll-cue { display: inline-flex; gap: 10px; align-items: center; margin-top: 30px; color: var(--clay); font-size: .8rem; font-weight: 700; letter-spacing: .12em; }
+        .scroll-cue span { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid var(--clay); border-radius: 50%; }
+
+        .section { position: relative; overflow: hidden; padding: 112px 20px 124px; }
+        .section:nth-of-type(even) { background: linear-gradient(135deg, #fffaf0, #f3e1cf 58%, #fbf0df); }
+        .section::before, .section::after {
+            position: absolute;
+            color: rgba(180, 119, 93, .2);
+            pointer-events: none;
+        }
+        .section::before { top: 46px; left: 8%; content: "❋"; font-size: 3.4rem; }
+        .section::after { right: 8%; bottom: 55px; content: "◌"; font-size: 4.8rem; }
+        .section-inner { position: relative; z-index: 1; width: min(1070px, 100%); margin: 0 auto; }
+        .section-heading { max-width: 770px; margin: 0 auto 43px; text-align: center; }
+        h2 { margin: 0; color: var(--deep); font-size: clamp(2.1rem, 4vw, 3.35rem); letter-spacing: -.06em; }
+        .section-intro { margin: 18px auto 0; color: var(--muted); line-height: 2; }
+
+        .fact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .fact-card {
+            min-height: 168px;
+            padding: 24px 18px;
+            border: 1px solid var(--line);
+            border-radius: 23px;
+            background: linear-gradient(145deg, rgba(255,255,255,.88), rgba(247,227,204,.76));
+            box-shadow: 0 15px 34px rgba(84, 55, 45, .1);
+            text-align: center;
+        }
+        .fact-icon { display: block; margin-bottom: 11px; font-size: 1.75rem; }
+        .fact-card strong { display: block; margin-bottom: 8px; color: var(--clay); }
+        .fact-card span:last-child { color: var(--muted); font-size: .9rem; line-height: 1.75; }
+
+        .story-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 54px; align-items: center; }
+        .story-image { padding: 10px; border-radius: 28px; background: #fff; box-shadow: 0 18px 38px rgba(84, 55, 45, .13); transform: rotate(-2deg); }
+        .story-image img { display: block; width: 100%; border-radius: 19px; object-fit: cover; }
+        .story-text h3 { margin: 0 0 18px; color: var(--deep); font-size: 1.75rem; }
+        .story-text p { margin: 0 0 16px; color: var(--muted); line-height: 2; }
+        .story-quote { margin-top: 23px; color: #78564b; background: #fffaf0; }
+
+        .shop {
+            position: relative;
+            overflow: hidden;
+            padding: 120px 20px 135px;
+            background:
+                radial-gradient(circle at 8% 20%, rgba(255,255,255,.8) 0 8%, transparent 8.5%),
+                radial-gradient(circle at 91% 78%, rgba(255,255,255,.65) 0 11%, transparent 11.5%),
+                linear-gradient(135deg, #ead0b5, #c99d82 55%, #f4dfc4);
+        }
+        .shop-inner { position: relative; z-index: 1; width: min(1060px, 100%); margin: 0 auto; }
+        .shop .section-heading { color: var(--deep); }
+        .shop .section-intro { color: #765c53; }
+        .shop-card {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 48px;
+            align-items: center;
+            padding: 34px;
+            border: 1px solid rgba(255,255,255,.88);
+            border-radius: 30px;
+            background: rgba(255,250,240,.74);
+            box-shadow: 0 20px 46px rgba(84, 55, 45, .14);
+            backdrop-filter: blur(10px);
+        }
+        .shop-image { padding: 9px; border-radius: 23px; background: #fffaf0; transform: rotate(2deg); }
+        .shop-image img { display: block; width: 100%; border-radius: 16px; object-fit: cover; }
+        .shop-copy h3 { margin: 0 0 16px; color: var(--deep); font-size: 1.8rem; }
+        .shop-copy p { margin: 0 0 17px; color: var(--muted); line-height: 2; }
+        .shop-list { display: grid; gap: 11px; margin: 22px 0 0; padding: 0; list-style: none; color: #76584d; line-height: 1.7; }
+        .shop-list li::before { margin-right: 9px; color: var(--clay); content: "✿"; }
+
+        .bonds { position: relative; overflow: hidden; padding: 118px 20px 135px; background: #fffaf0; }
+        .bonds-inner { position: relative; z-index: 1; width: min(1060px, 100%); margin: 0 auto; }
+        .bond-card {
+            display: flex;
+            align-items: center;
+            gap: 45px;
+            margin: 0 auto 32px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(255,255,255,.88), rgba(247,229,210,.72));
+            box-shadow: 0 18px 42px rgba(84, 55, 45, .11);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .bond-card:hover { box-shadow: 0 24px 52px rgba(84, 55, 45, .18); transform: translateY(-5px); }
+        .bond-card.reverse { flex-direction: row-reverse; }
+        .bond-image { flex: 0 0 38%; }
+        .bond-image img { display: block; width: 100%; max-height: 380px; border: 7px solid #fffdf7; border-radius: 20px; object-fit: cover; }
+        .bond-text { flex: 1; min-width: 0; }
+        .bond-text h3 { display: inline-block; margin: 0 0 17px; padding: 10px 16px; border-left: 5px solid var(--clay); border-radius: 0 10px 10px 0; color: var(--deep); background: #f8e6d3; font-size: 1.4rem; }
+        .bond-text p { margin: 0 0 16px; color: var(--muted); line-height: 1.95; }
+        .bond-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+        .tag { padding: 7px 13px; border-radius: 99px; color: #76574c; background: #f2dfcb; font-size: .87rem; font-weight: 700; }
+        .bond-quote { margin: 22px 0 0; padding: 13px 17px; border-left: 4px solid #c59573; border-radius: 0 12px 12px 0; background: #fffaf0; color: #76584e; font-style: italic; line-height: 1.8; }
+
+        .ending { padding: 105px 20px 110px; color: #fff9ee; background: var(--deep); text-align: center; }
+        .ending h2 { color: #ffe8c9; }
+        .ending p { max-width: 700px; margin: 20px auto 0; color: rgba(255,249,238,.78); line-height: 2; }
+        .back-btn { display: inline-block; margin-top: 30px; padding: 12px 24px; border: 1px solid var(--gold); border-radius: 99px; color: var(--gold); font-weight: 700; transition: background .25s ease, color .25s ease, transform .25s ease; }
+        .back-btn:hover { color: var(--deep); background: var(--gold); transform: translateY(-3px); }
+        footer { padding: 28px 20px; color: rgba(255,249,238,.62); background: #30211f; font-size: .76rem; letter-spacing: .08em; text-align: center; }
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 10; display: grid; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.8); border-radius: 50%; color: #fff; background: rgba(118,80,68,.72); cursor: pointer; opacity: 0; pointer-events: none; place-items: center; transform: translateY(12px); transition: opacity .3s ease, transform .3s ease, background .3s ease; }
+        .back-to-top.is-visible { opacity: .85; pointer-events: auto; transform: translateY(0); }
+        .back-to-top:hover, .back-to-top:focus-visible { outline: none; background: var(--deep); opacity: 1; }
+
+        @media (max-width: 780px) {
+            .site-nav { width: calc(100% - 34px); }
+            .logo { display: none; }
+            .nav-links { width: 100%; justify-content: space-between; gap: 8px; font-size: .68rem; }
+            .hero { min-height: auto; padding: 112px 16px 78px; }
+            .hero-inner, .story-layout, .shop-card { display: flex; flex-direction: column; gap: 40px; }
+            .hero-image { order: -1; width: min(500px, 100%); }
+            .hero-copy { width: 100%; }
+            .section, .shop, .bonds { padding: 82px 16px 95px; }
+            .fact-grid { grid-template-columns: repeat(2, 1fr); }
+            .shop-card { padding: 22px; }
+            .bond-card, .bond-card.reverse { flex-direction: column; gap: 24px; padding: 22px; }
+            .bond-image { width: 100%; }
+            .back-to-top { right: 16px; bottom: 16px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav" aria-label="主导航">
+        <a class="logo" href="index.html"><span class="logo-mark">鹿</span><span>有兽焉 · 鹿人店</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">主页</a></li>
+            <li><a href="#profile">角色档案</a></li>
+            <li><a href="#shop">鹿人店</a></li>
+            <li><a href="#friends">店里的伙伴</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow">THE DEER BEHIND THE MASK</p>
+                    <h1>四不像</h1>
+                    <p class="hero-subtitle">鹿人店店长 · 戴着面具的鹿精</p>
+                    <p class="hero-description">
+                        我叫四不像，经营着一家开在深山里的鹿人店。
+                        很多客人第一次见到我，会把我认成那只白色的吉祥麒麟——四不相。
+                        可我不是他。我只是一只鹿精，戴着用四不相骨血做成的麒麟面具，
+                        借着这个名字，在天庭交给我的差事里照顾皮皮，也照顾来到鹿人店的神兽们。
+                    </p>
+                    <blockquote class="hero-quote">“原来我是假的啊。”</blockquote>
+                    <a class="scroll-cue" href="#profile"><span>↓</span>听我说说这张面具</a>
+                </div>
+                <div class="hero-image reveal"><img src="sbx1.jpg" alt="戴着麒麟面具的四不像"></div>
+            </div>
+        </section>
+
+        <section class="section" id="profile">
+            <div class="section-inner">
+                <div class="section-heading reveal">
+                    <p class="section-kicker">THE MASK IS NOT THE FACE</p>
+                    <h2>我和四不相，差一点就成了同一个名字</h2>
+                    <p class="section-intro">
+                        四不相是世间第一只吉祥麒麟，是始麒麟与玉麒麟的长子；
+                        我则是一只普通的小鹿。因为过去的那段因缘，我戴上了麒麟面具，
+                        也被推到了“四不像”这个名字下面。面具能替我挡住很多目光，却不能把我真正变成四不相。
+                    </p>
+                </div>
+                <div class="fact-grid">
+                    <div class="fact-card reveal"><span class="fact-icon">🦌</span><strong>真实身份</strong><span>鹿精，不是真正的麒麟四不相。</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">🎭</span><strong>麒麟面具</strong><span>用四不相的骨血制成，让我得以伪装成祥瑞之子。</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">🔒</span><strong>身上的任务</strong><span>作为貔貅心锁，被派来照看并牵制皮皮。</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">🏡</span><strong>现在的身份</strong><span>鹿人店老板，暂时代养皮皮，也接住来访的神兽。</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="origin">
+            <div class="section-inner">
+                <div class="story-layout">
+                    <div class="story-image reveal"><img src="sbxiang.jpg" alt="四不像与四不相相关的画面"></div>
+                    <div class="story-text reveal">
+                        <p class="section-kicker">THE NAME I CARRY</p>
+                        <h3>我不是四不相，却一直和他连在一起</h3>
+                        <p>
+                            很久以前，我还是一只普通的小鹿，曾被貔貅从虎口下救了回来。
+                            后来天庭与貔貅之间有了争端，我被卷进那段往事，身上被植入了四不相留下的骨血，
+                            戴上面具，成了被安排好的“祥瑞之子”，也成了用来封锁皮皮记忆的貔貅心锁。
+                        </p>
+                        <p>
+                            麒麟的血脉会给我力量，也会给我疼痛。面具下的这张脸，和四不相有着无法割开的联系，
+                            但我还是我——会怕麻烦，会想把鹿人店经营好，也会在皮皮需要的时候站在他身边。
+                            那段真相很难受，我只提一提，因为日子还要继续过，鹿人店也还等着客人上门。
+                        </p>
+                        <blockquote class="story-quote">“四不相是真的，我是假的。”</blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="shop" id="shop">
+            <div class="shop-inner">
+                <div class="section-heading reveal">
+                    <p class="section-kicker">WELCOME TO DEER PEOPLE SHOP</p>
+                    <h2>鹿人店，今天也开门</h2>
+                    <p class="section-intro">
+                        我从潘家园搬到云南深山，开了这家专门帮助神兽的店。
+                        店里没有什么豪华招牌，只有一群各有各的麻烦、却也各有各的可爱家伙。
+                    </p>
+                </div>
+                <div class="shop-card reveal">
+                    <div class="shop-image"><img src="lurendian.jpg" alt="鹿人店伙伴与鹿精"></div>
+                    <div class="shop-copy">
+                        <h3>这里是鹿人店</h3>
+                        <p>
+                            有兽受伤了，可以来找我；有兽找不到对象、欠了债、闯了祸，
+                            也可以先坐下来喝口茶。店里偶尔会吵得像要塌了，账本也经常对不上，
+                            但只要大家还愿意回来，这里就还是一个家。
+                        </p>
+                        <ul class="shop-list">
+                            <li>帮助神兽解决各式各样的麻烦</li>
+                            <li>暂时代养皮皮，负责他的日常起居</li>
+                            <li>和兔爷一起，把鹿人店继续经营下去</li>
+                            <li>欢迎路过的神兽进来坐坐，但请别把店拆了</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bonds" id="friends">
+            <div class="bonds-inner">
+                <div class="section-heading reveal">
+                    <p class="section-kicker">THE ONES AT THE SHOP</p>
+                    <h2>鹿人店里的伙伴们</h2>
+                    <p class="section-intro">
+                        他们让鹿人店变得热闹，也让我这个不太会表达的店长，
+                        慢慢明白了“照顾”不只是天庭交下来的任务。
+                    </p>
+                </div>
+
+                <article class="bond-card reveal">
+                    <div class="bond-image"><img src="pipi.jpg" alt="皮皮天禄"></div>
+                    <div class="bond-text">
+                        <h3>皮皮 · 天禄</h3>
+                        <p>
+                            皮皮是天禄，也是我在鹿人店里最放不下的家伙。他是一只蓝色的貔貅，
+                            爱吃、爱闹，想到什么就做什么，常常刚惹出麻烦，就已经跑到下一个地方去了。
+                            我名义上是他的饲养员，实际上每天都在追着他收拾残局。
+                        </p>
+                        <p>
+                            但他并不只是一个需要被看管的孩子。皮皮有自己的过去，也有被封住的记忆；
+                            我曾经因为任务接近他，却也确实被他从虎口里救过一命。
+                            这笔账我一直记得，所以不管他把店里弄得多乱，我还是会把他找回来。
+                        </p>
+                        <div class="bond-tags"><span class="tag">💙 蓝色貔貅</span><span class="tag">🍪 爱吃爱闹</span><span class="tag">🧿 我的店员兼饲养对象</span></div>
+                        <blockquote class="bond-quote">“皮皮，别跑太远，鹿人店还要靠你招财呢。”</blockquote>
+                    </div>
+                </article>
+
+                <article class="bond-card reverse reveal">
+                    <div class="bond-image"><img src="ty.jpg" alt="鹿人店的伙伴们"></div>
+                    <div class="bond-text">
+                        <h3>兔爷 · 鹿人店的帮手</h3>
+                        <p>
+                            兔爷原本是月宫的退休兔子，后来为了追随我来到云南。
+                            他有自己的脾气，也有一套自己的生活经验；店里有他在，很多琐事总算有人搭把手，
+                            只是他偶尔说起旧事时，我还是会假装没有听见。
+                        </p>
+                        <p>
+                            我们一起经营鹿人店，一起面对来来往往的神兽。兔爷不是那种会把关心说得很直白的伙伴，
+                            可他愿意留下来，就已经说明了很多事。皮皮闹起来的时候，
+                            我们常常一个负责追，一个负责想办法把他哄回来。
+                        </p>
+                        <div class="bond-tags"><span class="tag">🐰 月宫退休兔</span><span class="tag">🫖 店里的帮手</span><span class="tag">🌙 一起守店</span></div>
+                        <blockquote class="bond-quote">“兔爷，店里的事还得麻烦你——我去把皮皮抓回来。”</blockquote>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="ending">
+            <div class="section-inner reveal">
+                <p class="section-kicker">THE SHOP IS STILL OPEN</p>
+                <h2>面具还戴着，日子也要好好过</h2>
+                <p>
+                    我不是四不相，这件事不会因为谁叫错名字就改变。
+                    但我依然可以把鹿人店经营下去，照顾皮皮，和兔爷一起接待新的客人。
+                    如果你也有想解决的麻烦，欢迎敲敲门——先说好，别赊账。
+                </p>
+                <a class="back-btn" href="index.html">← 回到山海间</a>
+            </div>
+        </section>
+    </main>
+
+    <button class="back-to-top" type="button" aria-label="返回顶部"><span aria-hidden="true">↑</span></button>
+    <footer>© 2026 有兽焉主题主页 · 本页面仅用于个人学习与展示 · 愿每个戴着面具的灵魂都能被温柔对待</footer>
+
+    <script>
+        const revealItems = document.querySelectorAll(".reveal");
+        const backToTop = document.querySelector(".back-to-top");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (reduceMotion || !("IntersectionObserver" in window)) {
+            revealItems.forEach((item) => item.classList.add("is-visible"));
+        } else {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.12 });
+            revealItems.forEach((item) => revealObserver.observe(item));
+        }
+
+        const updateBackToTop = () => backToTop.classList.toggle("is-visible", window.scrollY > 420);
+        window.addEventListener("scroll", updateBackToTop, { passive: true });
+        updateBackToTop();
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        });
+    </script>
+</body>
+</html>

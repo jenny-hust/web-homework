@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="谛听角色介绍：地府高管、地藏菩萨的坐骑、小髅的父亲，以及与白泽的关系。">
+    <title>谛听 · 地府档案</title>
+    <style>
+        :root {
+            --ink: #100e18;
+            --night: #241839;
+            --violet: #6f557f;
+            --lilac: #bba7ca;
+            --gold: #d1b27a;
+            --paper: #f7f3fb;
+            --muted: #71677b;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            min-width: 320px;
+            margin: 0;
+            color: #30283a;
+            background:
+                radial-gradient(circle at 88% 12%, rgba(169, 126, 191, .18), transparent 22rem),
+                linear-gradient(145deg, #faf7fd 0%, #ded3e8 42%, #7a6590 100%);
+            font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+
+        .topbar {
+            position: absolute;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 22px clamp(20px, 5vw, 76px);
+            color: var(--night);
+        }
+        .brand { display: flex; align-items: center; gap: 12px; font-size: .78rem; font-weight: 700; letter-spacing: .16em; }
+        .brand-mark {
+            display: grid;
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(255,255,255,.5);
+            border-radius: 50%;
+            place-items: center;
+            background: rgba(255,255,255,.08);
+        }
+        .topbar nav { display: flex; gap: 22px; font-size: .82rem; }
+        .topbar nav a { padding: 8px 0; border-bottom: 1px solid transparent; }
+        .topbar nav a:hover { border-color: var(--gold); }
+
+        .hero {
+            position: relative;
+            min-height: 760px;
+            overflow: hidden;
+            color: var(--night);
+            background:
+                linear-gradient(100deg, rgba(247, 243, 251, 0.94) 0 48%, rgba(226, 216, 236, 0.76) 70%, rgba(163, 145, 182, 0.42)),
+                url("diting1.jpg") 80% center / cover no-repeat;
+        }
+        .hero::before {
+            position: absolute;
+            top: 0;
+            right: 7%;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(transparent, rgba(209,178,122,.5), transparent);
+            content: "";
+        }
+        .hero::after {
+            position: absolute;
+            right: 5%;
+            bottom: 8%;
+            width: 140px;
+            height: 140px;
+            border: 1px solid rgba(209,178,122,.32);
+            border-radius: 50%;
+            box-shadow: 0 0 0 18px rgba(209,178,122,.04), 0 0 0 36px rgba(209,178,122,.025);
+            content: "";
+        }
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 150px minmax(0, 720px);
+            gap: 42px;
+            align-items: center;
+            min-height: 760px;
+            width: min(1120px, calc(100% - 48px));
+            margin: 0 auto;
+            padding-top: 74px;
+        }
+        .seal {
+            display: grid;
+            width: 150px;
+            height: 150px;
+            border: 1px solid rgba(209,178,122,.42);
+            border-radius: 50%;
+            place-items: center;
+            color: var(--gold);
+            font-family: serif;
+            font-size: 2.6rem;
+            letter-spacing: .12em;
+            transform: rotate(-8deg);
+        }
+        .seal span { border: 1px solid rgba(209,178,122,.28); padding: 24px 18px; border-radius: 50%; }
+        .hero-copy { max-width: 680px; }
+        .kicker { margin: 0 0 16px; color: #80678f; font-size: .76rem; font-weight: 700; letter-spacing: .28em; }
+        h1 { margin: 0; font-size: clamp(4.4rem, 10vw, 8.5rem); letter-spacing: -.09em; line-height: .9; }
+        .hero-name-en { margin: 18px 0 0; color: #735a82; font-size: .82rem; letter-spacing: .32em; }
+        .hero-lead { max-width: 620px; margin: 28px 0 0; color: #51485a; font-size: 1.08rem; line-height: 2; }
+        .hero-line {
+            margin-top: 26px;
+            padding-left: 16px;
+            border-left: 3px solid var(--gold);
+            color: #554363;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .archive {
+            position: relative;
+            display: grid;
+            grid-template-columns: 220px minmax(0, 860px);
+            gap: 44px;
+            width: min(1124px, calc(100% - 48px));
+            margin: 0 auto;
+            padding: 86px 0 110px;
+        }
+        .archive::before {
+            position: absolute;
+            top: 86px;
+            bottom: 110px;
+            left: 219px;
+            width: 1px;
+            background: linear-gradient(var(--violet), transparent);
+            content: "";
+        }
+        .archive-index {
+            position: sticky;
+            top: 28px;
+            align-self: start;
+            padding-right: 34px;
+        }
+        .archive-index strong { display: block; color: var(--violet); font-size: .75rem; letter-spacing: .22em; }
+        .archive-index ol { margin: 18px 0 0; padding: 0; list-style: none; counter-reset: index; }
+        .archive-index li { position: relative; margin: 14px 0; padding-left: 34px; color: #74677d; line-height: 1.6; counter-increment: index; }
+        .archive-index li::before { position: absolute; left: 0; color: var(--violet); content: "0" counter(index); font-size: .72rem; }
+
+        .archive-main { padding-left: 44px; }
+        .chapter { position: relative; padding: 0 0 82px; }
+        .chapter:last-child { padding-bottom: 0; }
+        .chapter-no { position: absolute; top: 4px; left: -66px; color: var(--violet); font-family: Georgia, serif; font-size: 1.1rem; }
+        .chapter h2 { margin: 0 0 18px; color: var(--night); font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -.05em; }
+        .chapter-copy { max-width: 760px; color: var(--muted); font-size: 1.02rem; line-height: 2.05; }
+        .chapter-copy p { margin: 0 0 18px; }
+        .chapter-copy blockquote {
+            max-width: 680px;
+            margin: 26px 0;
+            padding: 16px 20px;
+            border-left: 3px solid var(--violet);
+            background: rgba(255,255,255,.48);
+            color: #554263;
+            font-size: 1.08rem;
+            line-height: 1.9;
+        }
+
+        .portrait-strip {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 16px;
+            margin: 28px 0 8px;
+        }
+        .portrait-strip img {
+            width: 100%;
+            height: 330px;
+            border: 7px solid rgba(255,255,255,.58);
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 18px 36px rgba(36,24,57,.14);
+        }
+        .work-photo {
+            width: min(610px, 78%);
+            margin: 24px 0 8px;
+            padding: 8px;
+            border: 1px solid rgba(111,85,127,.16);
+            border-radius: 18px;
+            background: rgba(255,255,255,.42);
+        }
+        .work-photo img {
+            width: 100%;
+            height: 300px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        .shop-note {
+            display: grid;
+            grid-template-columns: 46px 1fr;
+            gap: 14px;
+            margin: 24px 0;
+            padding: 18px 20px;
+            border: 1px solid rgba(111,85,127,.16);
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,255,255,.62), rgba(224,210,235,.46));
+        }
+        .shop-note span { display: grid; width: 46px; height: 46px; border-radius: 50%; place-items: center; background: #ede3f3; font-size: 1.3rem; }
+        .shop-note p { margin: 0; color: var(--muted); line-height: 1.9; }
+
+        .work-ledger {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 26px;
+        }
+        .ledger-item {
+            min-height: 150px;
+            padding: 20px;
+            border: 1px solid rgba(111,85,127,.18);
+            border-radius: 16px;
+            background: rgba(255,255,255,.48);
+        }
+        .ledger-item span { color: var(--violet); font-size: 1.35rem; }
+        .ledger-item strong { display: block; margin: 9px 0 7px; color: var(--night); }
+        .ledger-item p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.75; }
+
+        .split-note {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 28px 0 10px;
+        }
+        .split-note figure {
+            margin: 0;
+            padding: 8px;
+            border: 1px solid rgba(111,85,127,.16);
+            border-radius: 16px;
+            background: rgba(255,255,255,.42);
+        }
+        .split-note img { width: 100%; height: 270px; border-radius: 11px; object-fit: cover; }
+        .split-note figcaption { padding: 10px 6px 4px; color: #7a6c82; font-size: .82rem; }
+
+        .footer {
+            padding: 70px 24px;
+            color: #e7dced;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(187,167,202,.12), transparent 14rem),
+                linear-gradient(135deg, #100e18, #2d203d);
+            text-align: center;
+        }
+        .footer h2 { margin: 0; color: #fff; font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -.06em; }
+        .footer p { max-width: 700px; margin: 18px auto 0; color: rgba(255,255,255,.68); line-height: 2; }
+        .back-link { display: inline-block; margin-top: 24px; padding: 11px 20px; border: 1px solid var(--lilac); border-radius: 99px; }
+        .back-top {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 20;
+            display: grid;
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(255,255,255,.5);
+            border-radius: 50%;
+            color: #fff;
+            background: rgba(36,24,57,.82);
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            place-items: center;
+        }
+        .back-top.visible { opacity: 1; pointer-events: auto; }
+
+        @media (max-width: 760px) {
+            .topbar { padding: 18px 16px; }
+            .brand { display: none; }
+            .topbar nav { width: 100%; justify-content: space-between; gap: 8px; font-size: .72rem; }
+            .hero { min-height: 700px; }
+            .hero-inner { grid-template-columns: 1fr; width: calc(100% - 32px); min-height: 700px; padding-top: 90px; }
+            .seal { width: 110px; height: 110px; font-size: 2rem; }
+            .archive { display: block; width: calc(100% - 32px); padding: 62px 0 82px; }
+            .archive::before { display: none; }
+            .archive-index { position: static; margin-bottom: 42px; padding: 18px; border: 1px solid rgba(111,85,127,.16); border-radius: 14px; background: rgba(255,255,255,.42); }
+            .archive-index ol { display: grid; grid-template-columns: repeat(2, 1fr); }
+            .archive-main { padding-left: 0; }
+            .chapter-no { position: static; display: block; margin-bottom: 8px; }
+            .portrait-strip, .split-note, .work-ledger { grid-template-columns: 1fr; }
+            .portrait-strip img { height: 260px; }
+            .work-photo { width: 100%; }
+            .work-photo img { height: 240px; }
+            .split-note img { height: 240px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="index.html"><span class="brand-mark">谛</span><span>有兽焉 · 地府档案</span></a>
+        <nav aria-label="章节导航">
+            <a href="#identity">身份</a>
+            <a href="#work">工作</a>
+            <a href="#xiaolou">小髅</a>
+            <a href="#baize">白泽</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="seal" aria-label="谛听"><span>谛听</span></div>
+                <div class="hero-copy">
+                    <p class="kicker">HELL EXECUTIVE · TRUSTED BY EARTH</p>
+                    <h1>谛听</h1>
+                    <p class="hero-name-en">能辨善恶，能察真假，能听人心</p>
+                    <p class="hero-lead">
+                        我是地府高管，也是地藏菩萨的坐骑。
+                        工作是辨善恶、判真假、巡视阴间，闲下来也会和大地聊天。
+                        我原来只是一只普通的白犬，后来因为主人地藏菩萨在地府，便一直留在这里。
+                    </p>
+                    <div class="hero-line">中元节是我生日，地藏菩萨每年都会送我生日礼物。</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="archive">
+            <aside class="archive-index">
+                <strong>档案目录</strong>
+                <ol>
+                    <li><a href="#identity">身份与职责</a></li>
+                    <li><a href="#work">地府工作</a></li>
+                    <li><a href="#xiaolou">女儿小髅</a></li>
+                    <li><a href="#baize">与白泽的关系</a></li>
+                </ol>
+            </aside>
+
+            <div class="archive-main">
+                <article class="chapter" id="identity">
+                    <span class="chapter-no">01</span>
+                    <h2>地藏菩萨的坐骑，地府的高管</h2>
+                    <div class="chapter-copy">
+                        <p>
+                            谛听是地藏菩萨经案下伏的一只神兽。原先是一只普通的白犬，
+                            在地府生活久了，毛色也慢慢变得漆黑。
+                        </p>
+                        <p>
+                            我不会把每件事都交给别人。善恶、真假、人心里藏着的内容，
+                            都需要认真分辨。我后来被提拔为地府高管，负责的事情也变得更多。
+                        </p>
+                        <div class="portrait-strip">
+                            <img src="diting2.jpg" alt="谛听地府形象">
+                            <img src="diting6.jpg" alt="谛听地府形象">
+                        </div>
+                    </div>
+                </article>
+
+                <article class="chapter" id="work">
+                    <span class="chapter-no">02</span>
+                    <h2>辨善恶，判真假，巡视阴间</h2>
+                    <div class="chapter-copy">
+                        <p>
+                            谛听的工作主要包括辨善恶、判真假和巡视阴间。
+                            地府里有各种阿飘需要管理，清明等繁忙时节还会有大量快递和纸钱事务，
+                            所以工作认真到几乎不肯休息。
+                        </p>
+                        <p>
+                            长期过度思虑让我患上脱毛的怪病。地藏菩萨批了长假，
+                            我才来到人间休养；凡人心事太多，让能听人心的我同样被吵得失眠，
+                            后来在鹿人店得到白泽枕，生活才稍稍安静一些。
+                        </p>
+                        <div class="work-photo">
+                            <img src="diting5.jpg" alt="谛听巡视阴间">
+                        </div>
+                        <div class="shop-note">
+                            <span aria-hidden="true">🏮</span>
+                            <p>
+                                鹿人店和地府都有我会来的理由。收了四不像的求助电话，
+                                我会赶去收阿飘；休养脱毛时，我又会从鹿人店买到白泽枕，
+                                顺便探望白泽。这里和地府的繁忙不同，却成了我偶尔歇脚的地方。
+                            </p>
+                        </div>
+                        <div class="work-ledger">
+                            <div class="ledger-item"><span>⚖</span><strong>辨善恶</strong><p>认真分辨善恶，不轻易交给别人的判断。</p></div>
+                            <div class="ledger-item"><span>◈</span><strong>判真假</strong><p>辨认真假美猴王一事后，成为地府高管。</p></div>
+                            <div class="ledger-item"><span>☾</span><strong>巡视阴间</strong><p>管理阿飘，也会应对地府和阴间的日常事务。</p></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="chapter" id="xiaolou">
+                    <span class="chapter-no">03</span>
+                    <h2>小髅：被我捡回来的女儿</h2>
+                    <div class="chapter-copy">
+                        <p>
+                            有一天，我在奈何桥下发现了一堆猫骨头。
+                            我把骨头埋进院子，第二天便种出了一只骷髅猫，
+                            取名小髅。从那以后，我收养了她，把她当作自己的女儿。
+                        </p>
+                        <p>
+                            小髅厌恶人类，我尊重她的想法，也会尽到保护女儿的责任。
+                            她的生前灵魂和皮毛被留在了一只厉鬼——芝麻那里；
+                            当芝麻放下执念重新投胎，我也会为小髅祝福他。
+                        </p>
+                        <div class="split-note">
+                            <figure>
+                                <img src="diting3.jpg" alt="谛听抱着小髅">
+                                <figcaption>谛听抱着小髅：地府高管，也是操心女儿的小爸爸。</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="diting4.jpg" alt="谛听与小髅在地府">
+                                <figcaption>小髅与谛听：骨头变成一只骷髅猫，也变成了一个家。</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="chapter" id="baize">
+                    <span class="chapter-no">04</span>
+                    <h2>白泽先生，是我尊敬的人</h2>
+                    <div class="chapter-copy">
+                        <p>
+                            我十分尊敬白泽先生。人间休养的时候，我通过鹿人店得到了白泽枕，
+                            也顺便去探望白泽。
+                        </p>
+                        <p>
+                            我偶尔会用窥天镜留意白泽，也会挖通往他家的地道送东西。
+                            白泽先生是我心里重要的榜样；就算我偶尔做事太热心，
+                            最终也会在自己的职责和家人身上，认真把该做的做好。
+                        </p>
+                        <div class="portrait-strip">
+                            <img src="diting7.jpg" alt="谛听与白泽">
+                            <img src="diting8.jpg" alt="谛听与白泽">
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <h2>地府很忙，家也要回来</h2>
+        <p>
+            白天辨善恶，晚上陪小髅；该巡视阴间时认真走一遍，该见白泽先生时也不忘问安。
+            谛听的工作很重，可他从来没有忘记，地府之外还有一个需要回来的家。
+        </p>
+        <a class="back-link" href="index.html">返回山海间</a>
+    </footer>
+
+    <button class="back-top" type="button" aria-label="返回顶部">↑</button>
+    <script>
+        const backTop = document.querySelector(".back-top");
+        window.addEventListener("scroll", () => {
+            backTop.classList.toggle("visible", window.scrollY > 420);
+        }, { passive: true });
+        backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    </script>
+</body>
+</html>

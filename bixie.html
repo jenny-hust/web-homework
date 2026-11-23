@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="《有兽焉》辟邪角色介绍，了解辟邪与天禄、四不相之间的羁绊。">
+    <title>辟邪 · 有兽焉角色图鉴</title>
+    <style>
+        :root {
+            --red: #ca153c;
+            --deep-red: #800125;
+            --rose: #e87991;
+            --pink: #ffd9e1;
+            --cream: #fffaf7;
+            --muted: #bc8e9a;
+            --line: rgba(236, 225, 225, 0.84);
+            font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { min-width: 320px; margin: 0; color: var(--deep-red); background: #fff8f8; }
+        a { color: inherit; text-decoration: none; }
+
+        .site-nav {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: min(1240px, calc(100% - 64px));
+            margin: 0 auto;
+            padding: 27px 0;
+            color: #69263c;
+        }
+
+        .logo { display: flex; align-items: center; gap: 12px; font-size: .82rem; font-weight: 700; letter-spacing: .18em; }
+        .logo-mark {
+            display: grid;
+            width: 35px;
+            height: 35px;
+            place-items: center;
+            border: 1px solid rgba(127, 41, 66, .3);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .45);
+        }
+        .nav-links { display: flex; gap: 30px; margin: 0; padding: 0; list-style: none; font-size: .86rem; }
+        .nav-links a { position: relative; padding: 8px 0; }
+        .nav-links a::after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            background: currentColor;
+            content: "";
+            transform: scaleX(0);
+            transition: transform .3s ease;
+        }
+        .nav-links a:hover::after { transform: scaleX(1); }
+
+        .hero {
+            position: relative;
+            display: flex;
+            min-height: 790px;
+            align-items: center;
+            overflow: hidden;
+            padding: 110px 20px 90px;
+            background:
+                radial-gradient(circle at 8% 18%, rgba(255,255,255,.92) 0 7%, transparent 7.5%),
+                radial-gradient(circle at 91% 76%, rgba(255,255,255,.72) 0 10%, transparent 10.5%),
+                linear-gradient(135deg, #fff5f5 0%, #ffdce3 44%, #f7bdc9 100%);
+        }
+
+        .hero::before, .hero::after {
+            position: absolute;
+            color: rgba(194, 65, 93, .2);
+            content: "♡";
+            pointer-events: none;
+        }
+        .hero::before { top: 24%; left: 9%; font-size: 4.5rem; transform: rotate(-15deg); }
+        .hero::after { right: 10%; bottom: 19%; font-size: 5rem; transform: rotate(16deg); }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(320px, .85fr);
+            gap: 72px;
+            align-items: center;
+            width: min(1120px, 100%);
+            margin: 0 auto;
+        }
+
+        .hero-copy { order: 1; }
+        .hero-image {
+            order: 2;
+            padding: 14px;
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 34px;
+            background: rgba(255,255,255,.45);
+            box-shadow: 0 24px 60px rgba(127,41,66,.14);
+            transform: rotate(2deg);
+        }
+        .hero-image img { display: block; width: 100%; max-height: 570px; border-radius: 24px; object-fit: cover; }
+        .eyebrow { margin: 0 0 18px; color: var(--red); font-size: .76rem; font-weight: 700; letter-spacing: .28em; }
+        h1 { margin: 0; color: var(--deep-red); font-size: clamp(3.4rem, 8vw, 7rem); letter-spacing: -.08em; line-height: 1; }
+        .hero-subtitle { margin: 22px 0 0; color: var(--rose); font-size: 1.15rem; font-weight: 700; letter-spacing: .18em; }
+        .hero-description { max-width: 620px; margin: 27px 0 0; color: var(--muted); font-size: 1.08rem; line-height: 2; }
+        .hero-quote {
+            margin: 30px 0 0;
+            padding: 18px 22px;
+            border-left: 4px solid var(--red);
+            border-radius: 0 16px 16px 0;
+            background: rgba(255,255,255,.55);
+            color: var(--deep-red);
+            font-size: 1.08rem;
+            line-height: 1.8;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            border: 1px solid var(--red);
+            border-radius: 99px;
+            color: var(--red);
+            font-weight: 700;
+            transition: background .25s ease, color .25s ease, transform .25s ease;
+        }
+        .back-btn:hover { color: #fff; background: var(--red); transform: translateY(-3px); }
+
+        .section, .bonds { position: relative; overflow: hidden; padding: 112px 20px 126px; }
+        .section::before, .section::after, .bonds::before, .bonds::after {
+            position: absolute;
+            z-index: 0;
+            color: rgba(232,121,145,.24);
+            pointer-events: none;
+        }
+        .section::before { top: 50px; left: 7%; content: "✦"; font-size: 3.8rem; }
+        .section::after { right: 7%; bottom: 55px; content: "♡"; font-size: 3.8rem; }
+        .section-inner, .bonds-inner { position: relative; z-index: 1; width: min(1060px, 100%); margin: 0 auto; }
+        .section-heading { margin-bottom: 42px; text-align: center; }
+        .section-kicker { margin: 0 0 12px; color: var(--red); font-size: .74rem; font-weight: 700; letter-spacing: .28em; }
+        h2 { margin: 0; color: var(--deep-red); font-size: clamp(2rem,4vw,3.2rem); letter-spacing: -.05em; }
+        .section-intro { max-width: 760px; margin: 18px auto 0; color: var(--muted); line-height: 2; text-align: center; }
+
+        .fact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .fact-card {
+            min-height: 158px;
+            padding: 23px 17px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: linear-gradient(145deg, rgba(255,255,255,.82), rgba(255,235,239,.72));
+            box-shadow: 0 15px 34px rgba(127,41,66,.1);
+            text-align: center;
+        }
+        .fact-icon { display: block; margin-bottom: 10px; font-size: 1.8rem; }
+        .fact-card strong { display: block; margin-bottom: 8px; color: var(--red); }
+        .fact-card span:last-child { color: var(--muted); font-size: .9rem; line-height: 1.7; }
+
+        .bonds {
+            padding-top: 120px;
+            padding-bottom: 135px;
+            background:
+                radial-gradient(circle at 8% 22%, rgba(255,255,255,.8) 0 8%, transparent 8.5%),
+                radial-gradient(circle at 92% 78%, rgba(255,255,255,.68) 0 12%, transparent 12.5%),
+                linear-gradient(135deg, #fff0f2, #ffd8e0 50%, #f8e4ed);
+        }
+        .bonds::before { top: 55px; left: 8%; content: "✿"; font-size: 4rem; transform: rotate(-12deg); }
+        .bonds::after { right: 8%; bottom: 70px; content: "♡"; font-size: 4rem; transform: rotate(15deg); }
+
+        .bond-card {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            margin: 0 auto 34px;
+            padding: 34px;
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 28px;
+            background: rgba(255,255,255,.72);
+            box-shadow: 0 18px 42px rgba(127,41,66,.12);
+            backdrop-filter: blur(10px);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .bond-card:hover { box-shadow: 0 25px 52px rgba(127,41,66,.18); transform: translateY(-6px); }
+        .bond-card.reverse { flex-direction: row-reverse; }
+        .bond-image { flex: 0 0 40%; }
+        .bond-image img { display: block; width: 100%; max-height: 390px; border: 7px solid #fff9fa; border-radius: 20px; object-fit: cover; }
+        .bond-text { flex: 1; min-width: 0; }
+        .bond-text h3 {
+            display: inline-block;
+            margin: 0 0 17px;
+            padding: 10px 16px;
+            border-left: 5px solid var(--red);
+            border-radius: 0 10px 10px 0;
+            color: var(--deep-red);
+            background: #fff1f3;
+            font-size: 1.4rem;
+        }
+        .bond-text p { margin: 0 0 16px; color: var(--muted); line-height: 1.95; }
+        .bond-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+        .tag { padding: 7px 13px; border-radius: 99px; color: var(--deep-red); background: #ffe3e8; font-size: .88rem; font-weight: 700; }
+        .bond-quote { margin: 22px 0 0; padding: 14px 18px; border-left: 4px solid var(--rose); border-radius: 0 12px 12px 0; background: #fff8e9; color: #9a5362; font-style: italic; line-height: 1.8; }
+
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .back-to-top {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 20;
+            display: grid;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255,255,255,.8);
+            border-radius: 50%;
+            color: #fff;
+            background: rgba(127,41,66,.6);
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            place-items: center;
+            transform: translateY(12px);
+            transition: opacity .3s ease, transform .3s ease, background .3s ease;
+        }
+        .back-to-top.is-visible { opacity: .8; pointer-events: auto; transform: translateY(0); }
+        .back-to-top:hover, .back-to-top:focus-visible { outline: none; background: rgba(127,41,66,.95); opacity: 1; }
+        footer { padding: 32px 24px; color: rgba(255,244,246,.76); background: #67243a; font-size: .78rem; letter-spacing: .1em; text-align: center; }
+
+        @media (max-width: 780px) {
+            .site-nav { align-items: flex-start; width: calc(100% - 36px); }
+            .logo { display: none; }
+            .nav-links { width: 100%; justify-content: space-between; gap: 10px; font-size: .7rem; }
+            .hero { min-height: auto; padding: 120px 16px 76px; }
+            .hero-inner { display: flex; flex-direction: column; gap: 42px; }
+            .hero-image { order: 1; width: min(500px,100%); }
+            .hero-copy { order: 2; }
+            .section, .bonds { padding: 80px 16px 92px; }
+            .fact-grid { grid-template-columns: repeat(2, 1fr); }
+            .bond-card, .bond-card.reverse { flex-direction: column; gap: 24px; padding: 22px; }
+            .bond-image { width: 100%; }
+            .back-to-top { right: 16px; bottom: 16px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav" aria-label="主导航">
+        <a class="logo" href="index.html"><span class="logo-mark">兽</span><span>有兽焉 · YS WORLD</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">主页</a></li>
+            <li><a href="index.html#characters">角色图鉴</a></li>
+            <li><a href="#profile">角色档案</a></li>
+            <li><a href="#bonds">羁绊关系</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow">THE WHITE FORTUNE</p>
+                    <h1>辟邪</h1>
+                    <p class="hero-subtitle">沉默的守护者 · 天禄的哥哥</p>
+                    <p class="hero-description">
+                        辟邪是貔貅一族的神兽，也是天禄最重要的哥哥。他不习惯把关心挂在嘴边，
+                        更多时候只是安静地站在弟弟身边，在天禄闯祸、迷茫或遇到危险时，
+                        用自己的方式把他护在身后。来到鹿人店以后，他也逐渐和四不像建立起
+                        一种安稳而默契的相处方式，在热闹的山海街里守住属于大家的日常。
+                    </p>
+                    <blockquote class="hero-quote">“不用害怕。只要我还在这里，就不会让你一个人面对。”</blockquote>
+                    <a href="index.html" class="back-btn">← 返回山海间</a>
+                </div>
+                <div class="hero-image reveal"><img src="pixiu.jpg" alt="辟邪角色图片"></div>
+            </div>
+        </section>
+
+        <section class="section" id="profile">
+            <div class="section-inner">
+                <div class="section-heading reveal">
+                    <p class="section-kicker">MEET THE WHITE PIXIU</p>
+                    <h2>辟邪的角色档案</h2>
+                    <p class="section-intro">
+                        他看起来冷静、克制，甚至有一点不好接近，但那份沉默并不是冷漠。
+                        辟邪只是把更多情绪藏进了行动里：记得谁需要帮助，记得谁还没有回家，
+                        也记得要在天禄闯祸之后，替他收拾残局。
+                    </p>
+                </div>
+                <div class="fact-grid">
+                    <div class="fact-card reveal"><span class="fact-icon">🤍</span><strong>身份</strong><span>貔貅一族的神兽，天禄的哥哥</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">🛡️</span><strong>性格</strong><span>沉稳寡言，却把守护放在第一位</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">🌙</span><strong>相处方式</strong><span>不擅长解释，用陪伴和行动表达关心</span></div>
+                    <div class="fact-card reveal"><span class="fact-icon">🏠</span><strong>重要的家</strong><span>和天禄、四不像一起生活的鹿人店</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bonds" id="bonds">
+            <div class="bonds-inner">
+                <div class="section-heading reveal">
+                    <p class="section-kicker">THE PEOPLE HE PROTECTS</p>
+                    <h2>辟邪的羁绊</h2>
+                    <p class="section-intro">
+                        对辟邪来说，羁绊不是热闹的誓言，而是每一次回头都能看见熟悉的身影。
+                        天禄是他放不下的弟弟，四不相则是与他关系亲近、愿意陪伴他们的人。
+                    </p>
+                </div>
+
+                <article class="bond-card reveal">
+                    <div class="bond-image"><img src="tianlu.jpg" alt="天禄，辟邪的弟弟"></div>
+                    <div class="bond-text">
+                        <h3>关于弟弟天禄</h3>
+                        <p>
+                            天禄是辟邪的弟弟，也是他最难放心不下的家人。天禄爱吃、爱闹、
+                            脾气来得快，常常一边嚷着“本大爷”，一边把自己卷进新的麻烦里。
+                            辟邪表面上总是无奈，实际上却一直留意着弟弟的情绪和安危。
+                        </p>
+                        <p>
+                            他们会拌嘴，会因为小事争个不停，但真正遇到危险时，两个人总会站在一起。
+                            辟邪不需要用很多话证明兄弟情分；他愿意陪天禄找回失去的记忆，
+                            也愿意在天禄害怕或迷路的时候，成为他可以回头寻找的方向。
+                        </p>
+                        <div class="bond-tags"><span class="tag">🤍 兄弟</span><span class="tag">🛡️ 默默守护</span><span class="tag">☁️ 吵架也不会走散</span></div>
+                        <blockquote class="bond-quote">“他总是很吵。不过，他是我弟弟。”</blockquote>
+                    </div>
+                </article>
+
+                <article class="bond-card reverse reveal">
+                    <div class="bond-image"><img src="sibuxiang.jpg" alt="四不相"></div>
+                    <div class="bond-text">
+                        <h3>关于亲近的四不相</h3>
+                        <p>
+                            四不相是辟邪十分亲近的伙伴，也是他在山海街生活中很重要的陪伴。
+                            四不相温和、安静，有自己的节奏；和不善表达的辟邪在一起时，
+                            不需要太多解释，一个眼神、一次并肩同行，就足以让彼此明白。
+                        </p>
+                        <p>
+                            辟邪习惯把心事藏起来，而四不相愿意耐心陪着他。两个人的相处不喧闹，
+                            却有一种稳定的默契：一起看着天禄，一起面对山海街里的日常，
+                            也在彼此需要的时候安静地站在对方身边。
+                        </p>
+                        <div class="bond-tags"><span class="tag">🤍 亲近的伙伴</span><span class="tag">🌙 安静的默契</span><span class="tag">🐾 并肩同行</span></div>
+                        <blockquote class="bond-quote">“四不相在，我就知道不用一个人面对。”</blockquote>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <button class="back-to-top" type="button" aria-label="返回顶部"><span aria-hidden="true">↑</span></button>
+    <footer>© 2026 有兽焉主题主页 · 本页面仅用于个人学习与展示 · 愿每个归途都有灯</footer>
+
+    <script>
+        const revealItems = document.querySelectorAll(".reveal");
+        const backToTop = document.querySelector(".back-to-top");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (reduceMotion || !("IntersectionObserver" in window)) {
+            revealItems.forEach((item) => item.classList.add("is-visible"));
+        } else {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.12 });
+            revealItems.forEach((item) => revealObserver.observe(item));
+        }
+
+        const updateBackToTop = () => backToTop.classList.toggle("is-visible", window.scrollY > 420);
+        window.addEventListener("scroll", updateBackToTop, { passive: true });
+        updateBackToTop();
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        });
+    </script>
+</body>
+</html>
